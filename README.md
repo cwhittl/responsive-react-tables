@@ -13,10 +13,11 @@ import ResponsiveTable from './ResponsiveTable'
 import GroupedResponsiveTable from './GroupedResponsiveTable'
 export default class Results extends React.Component {
   render(){
+    const props = this.props;
     return(
       <div>
-        <ResponsiveTable columns={props.columns} rows={summary_data}/>
-        <GroupedResponsiveTable columns={props.columns} groups={summary_data} group_field="summarytype"/>
+        <ResponsiveTable columns={props.columns} rows={props.data}/>
+        <GroupedResponsiveTable columns={props.columns} groups={props.grouped_data} group_field="summarytype"/>
       </div>
     );
   }
