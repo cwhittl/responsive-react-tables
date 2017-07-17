@@ -4,7 +4,7 @@ export default class ResponsiveTable extends React.Component {
     var _this = this;
     var columns = Object.keys(_this.props.columns).map(function(colName, index) {
       return (
-        <th>{colName}</th>
+        <th key={"head_" + colName}>{_this.props.columns[colName]}</th>
       );
     });
     return (
@@ -14,16 +14,21 @@ export default class ResponsiveTable extends React.Component {
 
   _rows() {
     var _this = this;
-    return _this.props.rows.map(function(row) {
-      var values = Object.keys(_this.props.columns).map(function(colName, colKey) {
+    if (_this.props.rows && _this.props.rows.length > 0) {
+      return _this.props.rows.map(function(row) {
+        var values = Object.keys(_this.props.columns).map(function(colName, colKey) {
+          return (
+            <td key={"td_" + colName} data-label={_this.props.columns[colName]}>{row[colName]}</td>
+          );
+        });
         return (
-          <td data-label={colName}>{row[colName]}</td>
+          <tr>{values}</tr>
         );
-      })
-      return (
-        <tr>{values}</tr>
-      );
-    })
+      });
+    } else {
+      return null;
+    }
+
   }
 
   render() {
@@ -41,6 +46,6 @@ export default class ResponsiveTable extends React.Component {
 }
 
 ResponsiveTable.defaultProps = {
-  columns:{},
-  row:{}
+  columns: {},
+  row: {}
 }
